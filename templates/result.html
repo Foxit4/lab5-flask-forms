@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Результат обробки</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f4f6ff; color: #222; margin: 0; }
+    main { max-width: 36rem; margin: 2rem auto; padding: 1.5rem 2rem; background: #fff;
+           border: 1px solid #d0d6e8; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    h1 { color: #1a237e; margin-top: 0; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccd; padding: .5rem .75rem; text-align: left; }
+    thead th { background: #e8eaf6; }
+    .ok { color: #1b5e20; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Результат обробки форми</h1>
+  <p class="ok">Після успішного надсилання дані записано у файл:
+    <strong>{{ filename }}</strong>.</p>
+  <table>
+    <thead><tr><th>Поле</th><th>Значення</th></tr></thead>
+    <tbody>
+      {% for field, label in labels.items() %}
+      <tr><th scope="row">{{ label }}</th><td>{{ values[field] }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p>Значення цієї сторінки передано в URL; їх можна змінити вручну.</p>
+  <a href="{{ url_for('form') }}">Заповнити нову форму</a>
+</main>
+</body>
+</html>

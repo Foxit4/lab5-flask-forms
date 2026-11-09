@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Реєстрація на захід</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f4f6ff; color: #222; margin: 0; }
+    main { max-width: 32rem; margin: 2rem auto; padding: 1.5rem 2rem; background: #fff;
+           border: 1px solid #d0d6e8; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    h1 { color: #1a237e; margin-top: 0; }
+    label { display: block; font-weight: 600; margin-bottom: .25rem; }
+    input, textarea { width: 100%; box-sizing: border-box; padding: .5rem; font: inherit;
+                      border: 1px solid #aab; border-radius: 6px; }
+    .invalid { border-color: #b00020; }
+    .field-error { color: #b00020; font-size: .9rem; margin: .25rem 0 0; }
+    .errors { background: #fdecea; border: 1px solid #b00020; border-radius: 6px;
+              padding: .5rem 1.5rem; color: #7a0014; }
+    button { padding: .6rem 1.4rem; font: inherit; color: #fff; background: #1a237e;
+             border: 0; border-radius: 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Реєстрація на захід</h1>
+
+  {% if errors %}
+  <ul class="errors" role="alert">
+    {% for field, message in errors.items() %}
+    <li>{{ labels.get(field, 'Обробка даних') }}: {{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('form') }}" novalidate>
+    <p><label for="name">Ім’я</label>
+      <input id="name" name="name" type="text" required maxlength="80"
+             {% if 'name' in errors %}class="invalid"{% endif %}
+             value="{{ values.get('name', '') }}">
+      {% if 'name' in errors %}<span class="field-error">{{ errors['name'] }}</span>{% endif %}</p>
+
+    <p><label for="email">Електронна адреса</label>
+      <input id="email" name="email" type="email" required maxlength="254"
+             {% if 'email' in errors %}class="invalid"{% endif %}
+             value="{{ values.get('email', '') }}">
+      {% if 'email' in errors %}<span class="field-error">{{ errors['email'] }}</span>{% endif %}</p>
+
+    <p><label for="quantity">Кількість учасників</label>
+      <input id="quantity" name="quantity" type="number" required min="1" max="100" step="1"
+             {% if 'quantity' in errors %}class="invalid"{% endif %}
+             value="{{ values.get('quantity', '') }}">
+      {% if 'quantity' in errors %}<span class="field-error">{{ errors['quantity'] }}</span>{% endif %}</p>
+
+    <p><label for="topic">Тема участі</label>
+      <textarea id="topic" name="topic" required maxlength="200" rows="4"
+                {% if 'topic' in errors %}class="invalid"{% endif %}>{{ values.get('topic', '') }}</textarea>
+      {% if 'topic' in errors %}<span class="field-error">{{ errors['topic'] }}</span>{% endif %}</p>
+
+    <button type="submit">Надіслати</button>
+  </form>
+</main>
+</body>
+</html>

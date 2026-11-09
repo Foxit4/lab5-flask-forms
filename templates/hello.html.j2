@@ -1,0 +1,25 @@
+{% autoescape true %}
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Привітання</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f0f4ff; color: #222;
+           display: flex; justify-content: center; padding: 3rem 1rem; }
+    .card { background: #fff; border: 1px solid #c8d0e8; border-radius: 12px;
+            padding: 2rem 2.5rem; max-width: 32rem; box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    h1 { color: #1a237e; margin-top: 0; }
+    a { color: #1a237e; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Вітаємо, {{ name }}!</h1>
+    <p>Цю сторінку сформовано на сервері з шаблону Jinja2.</p>
+    <a href="{{ url_for('index') }}">На головну</a>
+  </div>
+</body>
+</html>
+{% endautoescape %}
